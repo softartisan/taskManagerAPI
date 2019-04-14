@@ -12,7 +12,7 @@ const upload = multer({
         fileSize:1000000
     },
     fileFilter(req, file, cb){
-        if(!file.originalname.match(/\.(jpg|jpeg|png)$/)) return cb(new Error('The file must be jpg,jpeg or png'));
+        if(!file.originalname.match(/\.(jpg|jpeg|png)$/)) return cb(new Error('El archivo debe ser jpg,jpeg o png.'));
         cb(undefined,true);
     }
 });
@@ -95,7 +95,7 @@ router.patch('/users/me', auth, async (req, res) =>{
     const allowedUpdates = ['name', 'emai', 'password', 'age'];
     const isValidOperation = updates.every(update => allowedUpdates.includes(update));
 
-    if(!isValidOperation) return res.status(400).send({error:'invalid operation'});
+    if(!isValidOperation) return res.status(400).send({error:'Operación invalida.'});
 
     try{
         updates.forEach((update) => req.user[update] = req.body[update]);

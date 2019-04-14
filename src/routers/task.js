@@ -5,7 +5,7 @@ const router = new express.Router();
 
 
 router.post('/tasks', auth, async (req,res) => {
-    // const task = new Task(req.body);
+  
     const task = new Task({
         ...req.body,
         owner: req.user._id
@@ -18,9 +18,7 @@ router.post('/tasks', auth, async (req,res) => {
     }
 });
 
-//GET /tasks
-//GET /tasks?limit=10&skip=0
-//GET /task?sortBy=createdAt:desc
+
 router.get('/tasks/', auth, async (req,res) => {
     const match = {};
     const sort = {};
@@ -66,7 +64,7 @@ router.patch('/tasks/:id', auth, async (req, res) => {
     console.log(updates);
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
 
-    if(!isValidOperation) return res.status(400).send({error: 'Invalid operation'});
+    if(!isValidOperation) return res.status(400).send({error: 'Operación invalida'});
 
     try{
         const task = await Task.findOne({_id: req.params.id, owner: req.user.id});
